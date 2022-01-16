@@ -10,4 +10,3 @@ readinteger <- function()
 }
 
 print(readinteger())
- 

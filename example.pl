@@ -1,23 +1,30 @@
 #!/usr/local/bin/perl
 #
-# create a series of directories
+# generate a boilerplate HTML file
 #
-if ($#ARGV != 2) {
-    print "usage: mkdirs base start stop\n";
+
+if ($#ARGV != 1) {
+    print "Valid arguments: <filename> <num-of-files>\n";
+    print "Example usage: demo 2\n";
     exit;
 }
 
-$base = $ARGV[0];
-$start = $ARGV[1];
-$stop = $ARGV[2];
+$title = $ARGV[0];
+$num = $ARGV[1];
 
-for ($i=$start; $i <= $stop; $i++) {
+for ($i=1; $i <= $num; $i++) {
 
-    $num = $i;
-    if($i<10) { $num = "00$i"; }
-    elsif($i<100) { $num = "0$i"; }
+    open(HTML, ">$title $i.html");
 
-    $cmd = "mkdir $base$num";
-    print $cmd."\n";
-    if(system($cmd)) { print "mkdir failed\n"; }
+    if($i==$num) {
+    $next = 1;
+    } else {
+    $next = $i+1;
+    }
+
+    print HTML "<html>\n<head>\n<title>$title$i</title>\n</head>\n<body>\n";
+    print HTML "<main>\n</main>\n";
+    print HTML "</body>\n</html>\n";
+
+    close(HTML);
 }

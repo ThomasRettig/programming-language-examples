@@ -1,5 +1,4 @@
 #!/usr/local/bin/perl
-#
 # generate a boilerplate HTML file
 
 if ($#ARGV != 1) {
@@ -21,8 +20,8 @@ for ($i=1; $i <= $num; $i++) {
     $next = $i+1;
     }
 
-    print HTML "<html>\n<head>\n<title>$title$i</title>\n</head>\n<body>\n";
-    print HTML "<main>\n</main>\n";
+    print HTML "<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>$title</title>\n</head>\n<body>\n";
+    print HTML "<h1>$title</h1>\n";
     print HTML "</body>\n</html>\n";
 
     close(HTML);

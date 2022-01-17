@@ -1,7 +1,6 @@
 #!/usr/local/bin/perl
 #
 # generate a boilerplate HTML file
-#
 
 if ($#ARGV != 1) {
     print "Valid arguments: <filename> <num-of-files>\n";

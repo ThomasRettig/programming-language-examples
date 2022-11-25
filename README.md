@@ -1,5 +1,7 @@
 # Progamming language examples
-A tiny collection of sample programs written in various programming languages, especially those which are lesser-known or less used. The samples are meant to exhibit their respective syntactical features. The samples come from different sources; namely Wikipedia.
+
+A tiny collection of programs written in various programming languages with a deliberate focus on the lesser-known. The goal is to illustrate the syntax of each language. The samples come from different sources; most are from Wikipedia.
+
 ## Current languages
 - Ada
 - Elm

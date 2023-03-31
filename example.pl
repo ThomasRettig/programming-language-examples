@@ -1,38 +1,34 @@
-#!/usr/local/bin/perl
-# generate a boilerplate HTML file
-# comes with normalize.css
-
+#!/usr/bin/perl
+use strict;
 use warnings;
+use Term::ANSIColor;
 
-# usage options
-if ($#ARGV != 1) {
-    print "Options:\n";
-    print "<filename>: The name of the HTML file to generate.\n";
-    print "<number-of-files>: The number of HTML files to generate\n";
-    print "<normalize>: Choose if you would like to inlcude a CSS reset inside the HTML file\n";
-    print "Example usage to create 2 files called \"demo\":";
-    print "demo 2\n";
+my ($title, $num, $normalize) = @ARGV;
+
+# Validate input
+if (!$title || !$num || $normalize !~ /^(y|n)$/i) {
+    print color('bright_red'), "Usage: ", color('reset'), "$0 <filename> <number-of-files> <normalize[y/n]>\n";
     exit;
 }
 
-$title = $ARGV[0];
-$num = $ARGV[1];
-
-for ($i=1; $i <= $num; $i++) {
-
-    open(HTML, ">$title $i.html");
-
-    # prevent the files from overwriting each other by giving them an increasing number
-    if($i==$num) {
-    $next = 1;
-    } else {
-    $next = $i+1;
-    }
-    
-    # write the boilerplate HTML to the newly created file
-    print HTML "<html lang=\"en\">\n<head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>$title</title><link rel=\"stylesheet\" type=\"text/css\" href=\"https://unpkg.com/normalize.css\@8.0.1/normalize.css\">\n</head>\n<body>\n";
-    print HTML "<h1>$title</h1>\n";
-    print HTML "</body>\n</html>\n";
-
-    close(HTML);
+for (my $i = 1; $i <= $num; $i++) {
+    my $file_name = "${title}_${i}.html";
+    open my $html_fh, '>', $file_name or die color('bright_red'), "Can't open file: $!", color('reset');
+    print $html_fh <<~END_HTML;
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>$title</title>
+            <link rel="stylesheet" href="https://unpkg.com/normalize.css\@8.0.1/normalize.css">
+        </head>
+        <body>
+            <h1>$title</h1>
+        </body>
+        </html>
+    END_HTML
+    close $html_fh;
+    print color('bright_green'), "Created file: ", color('reset'), "$file_name\n";
 }
